@@ -2,10 +2,19 @@ var map;
 
 function initMap() 
 {
-  map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -34.397, lng: 150.644},
     zoom: 8
   });
+
+  var markerPosition = new google.maps.LatLng(-34.397, 150.644);
+
+  var marker = new google.maps.Marker({
+    position: markerPosition,
+    map: map
+  });
+
+  // marker.setMap(map);
 
   initDrawing(map);
 }
@@ -34,8 +43,7 @@ function initDrawing(map)
     },
     markerOptions: {
       draggable: true,
-      editable: true,
-      title: 'test'
+      title: 'Test'
     }
   };
 
