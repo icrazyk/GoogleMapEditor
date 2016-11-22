@@ -6,13 +6,13 @@ body
 	padding: 0; 
 }
 
-.map-wrap
+.map
 {
   position: relative;
   height: 100%;
 }
 
-.map 
+.map-container 
 { 
   position: absolute;
   top: 0;
@@ -25,8 +25,12 @@ body
 .map-control
 {
   position: absolute;
-  left: 100px;
-  top: 100px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  background: #fff;
+  padding: 10px;
   z-index: 2;
 }
 

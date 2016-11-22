@@ -42,6 +42,10 @@ function initDrawing()
     markerOptions: 
     {
       draggable: true
+    },
+    polylineOptions:
+    {
+      editable: true
     }
   };
 
@@ -53,14 +57,16 @@ function initDrawing()
 
   google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) 
   {
+    var drawing = new draw(event.type);
     switch(event.type)
     {
       case google.maps.drawing.OverlayType.MARKER:
-        var coordinates = event.overlay.getPosition().toJSON();
-        var InfoWindowContent = prompt('Укажите текст подсказки', '');
-        setInfoWindow(map, event.overlay, InfoWindowContent);
+        drawing.prop.position = event.overlay.getPosition().toJSON();
+        drawing.prop.info = prompt('Укажите текст подсказки', '');
+        setInfoWindow(map, event.overlay, drawing.prop.info);
         break;
       case google.maps.drawing.OverlayType.POLYLINE:
+        drawing.prop.path = event.overlay.getPath().getArray();
         break;
       case google.maps.drawing.OverlayType.POLYGON:
         break;
@@ -69,23 +75,29 @@ function initDrawing()
       case google.maps.drawing.OverlayType.RECTANGLE:
         break; 
     }
+    console.log(drawing);
   });
+}
 
-  // functions
-
-  function setInfoWindow(map, marker, content)
+function setInfoWindow(map, marker, content)
+{
+  if(content)
   {
-    if(content)
+    google.maps.event.addListener(marker, 'click', function()
     {
-      google.maps.event.addListener(marker, 'click', function()
-      {
-        if(typeof infoWindow != 'undefined') infoWindow.close(); 
-        infoWindow = new google.maps.InfoWindow({
-          content: content,
-          maxWidth: 200
-        });
-        infoWindow.open(map, marker);
+      if(typeof infoWindow != 'undefined') infoWindow.close(); 
+      infoWindow = new google.maps.InfoWindow({
+        content: content,
+        maxWidth: 200
       });
-    }
+      infoWindow.open(map, marker);
+    });
   }
+}
+
+function draw(type)
+{
+  this.type = type;
+  this.prop = {};
+  return this;
 }
