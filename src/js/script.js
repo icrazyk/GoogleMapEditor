@@ -9,6 +9,7 @@ function initMap()
     zoom: 5
   });
 
+  initDataLayerStyles();
   initInstruments();
   initDrawingList();
   initMapControlTools();
@@ -56,10 +57,7 @@ function initInstruments()
 
   function setEditStatus(status)
   {
-    map.data.setStyle({
-      editable: status,
-      draggable: status
-    });
+    initDataLayerStyles(status)
   }
 }
 
@@ -94,6 +92,14 @@ function initDrawingList()
       '</li>'
     )
     .data('feature', drawing.feature)
+    .mouseover(function()
+    {
+      console.log('Навели');
+    })
+    .mouseout(function()
+    {
+      console.log('НЕ навели');
+    })
     .appendTo('#drawings-list');
   });
 }
@@ -126,5 +132,22 @@ function initMapControlTools()
           break;
       }
     }
+  });
+}
+
+function initDataLayerStyles(editable)
+{
+  map.data.setStyle(function(feature)
+  {
+    var prop = {
+      fillColor: 'blue',
+      strokeColor: 'blue'
+    };
+    if(editable)
+    {
+      prop.editable = true;
+      prop.draggable = true;
+    }
+    return prop;
   });
 }

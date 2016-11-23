@@ -12,7 +12,7 @@
     <div id="map-control" class="map-control">
 			<div class="map-control__widget">
 				<div class="widget-control">
-					<h3 class="widget-control__head">Инструменты</h3>
+					<h3 class="widget-control__head">Tools</h3>
 					<div class="widget-control__drawings-instruments">
 						<div class="drawings-instruments" id="instruments">
 							<button class="drawings-instruments__btn drawings-instruments__btn_active" data-instrument="null">View</button>
@@ -22,23 +22,33 @@
 							<button class="drawings-instruments__btn" data-instrument="Polygon">Polygon</button>
 						</div>
 					</div>
+					<!--
+					<div class="widget-control__instrument-settings">
+						<div class="instrument-settings">
+							<h4 class="instrument-settings__head">Tool settings</h4>
+							<div class="instrument-settings__list">
+								<ul class="insset-list">
+									<li class="insset-list__item" data-available="Point">
+										<div class="insset">
+											<div class="insset__title">Info window</div>
+											<div class="insset__val">
+												<input type="text" name="info-window" disabled>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+					-->
 				</div>
 			</div>
 			<div class="map-control__widget">
 				<div class="widget-control">
 					<h3 class="widget-control__head">Слои</h3>
 					<div class="widget-control__drawings-list">
-						<ol class="drawings-list" id="drawings-list">
-							<!--
-							<li class="drawings-list__item">
-								<div class="drawing-info"><span class="drawing-info__title">Point</span></div>
-								<div class="drawing-tools">
-									<button class="drawing-tools__btn">Edit</button>
-									<button class="drawing-tools__btn">Delete</button>
-								</div>
-							</li>
-							-->
-						</ol>
+						<ol class="drawings-list" id="drawings-list"></ol>
 					</div>
 				</div>
 			</div>
