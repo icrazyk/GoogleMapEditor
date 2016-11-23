@@ -9,10 +9,54 @@
 <body>
   <div class="map">
   	<div id="map" class="map-container"></div>
-    <div id="map-control" class="map-control"></div>
+    <div id="map-control" class="map-control">
+			<div class="map-control__widget">
+				<div class="widget-control">
+					<h3 class="widget-control__head">Инструменты</h3>
+					<div class="widget-control__drawings-instruments">
+						<div class="drawings-instruments" id="instruments">
+							<button class="drawings-instruments__btn drawings-instruments__btn_active" data-instrument="null">View</button>
+							<button class="drawings-instruments__btn" data-instrument="edit">Edit</button>
+							<button class="drawings-instruments__btn" data-instrument="Point">Point</button>
+							<button class="drawings-instruments__btn" data-instrument="LineString">Polyline</button>
+							<button class="drawings-instruments__btn" data-instrument="Polygon">Polygon</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="map-control__widget">
+				<div class="widget-control">
+					<h3 class="widget-control__head">Слои</h3>
+					<div class="widget-control__drawings-list">
+						<ol class="drawings-list" id="drawings-list">
+							<!--
+							<li class="drawings-list__item">
+								<div class="drawing-info"><span class="drawing-info__title">Point</span></div>
+								<div class="drawing-tools">
+									<button class="drawing-tools__btn">Edit</button>
+									<button class="drawing-tools__btn">Delete</button>
+								</div>
+							</li>
+							-->
+						</ol>
+					</div>
+				</div>
+			</div>
+			<div class="map-control__widget">
+				<div class="widget-control">
+					<h3 class="widget-control__head">Карта</h3>
+					<div class="widget-control__drawings-state">
+						<div class="drawings-state" id="drawings-state">
+							<button class="drawings-state__btn" data-btn="map-save">Save</button>
+							<button class="drawings-state__btn" data-btn="map-reset">Reset</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
   </div>
   <script src="../node_modules/jquery/dist/jquery.js"></script>
 	<script src="js/script.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwrHUs90aEpc53LdRRiprNimnHboRHOUQ&callback=initMap&libraries=drawing"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwrHUs90aEpc53LdRRiprNimnHboRHOUQ&callback=initMap"></script>
 </body>
 </html>

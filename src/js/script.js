@@ -1,103 +1,130 @@
 var map;
-var drawingManager;
-var infoWindow;
-var store;
 
 // functions
 
 function initMap() 
 {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
+    center: {lat: 54, lng: 35},
+    zoom: 5
   });
 
-  var markerPosition = new google.maps.LatLng(-34.397, 150.644);
-
-  // marker.setMap(map);
-
-  initDrawing(map);
+  initInstruments();
+  initDrawingList();
+  initMapControlTools();
 }
 
-function initDrawing()
+function initInstruments()
 {
-  var drawingManagerOptions = 
+  $('#instruments').click(function(e)
   {
-    drawingControlOptions: 
+    if(e.target.tagName == 'BUTTON')
     {
-      position: google.maps.ControlPosition.TOP_CENTER,
-      drawingModes: 
-      [
-        google.maps.drawing.OverlayType.MARKER,
-        google.maps.drawing.OverlayType.POLYLINE,
-        google.maps.drawing.OverlayType.POLYGON,
-        google.maps.drawing.OverlayType.CIRCLE,
-        google.maps.drawing.OverlayType.RECTANGLE
-      ]
-    },
-    circleOptions: 
-    {
-      editable: true
-    },
-    markerOptions: 
-    {
-      draggable: true
-    },
-    polylineOptions:
-    {
-      editable: true
+      setInstrument(e.target);
     }
-  };
-
-  drawingManager = new google.maps.drawing.DrawingManager(drawingManagerOptions);
-
-  drawingManager.setMap(map);
-
-  // handlers
-
-  google.maps.event.addListener(drawingManager, 'overlaycomplete', function(event) 
-  {
-    var drawing = new draw(event.type);
-    switch(event.type)
-    {
-      case google.maps.drawing.OverlayType.MARKER:
-        drawing.prop.position = event.overlay.getPosition().toJSON();
-        drawing.prop.info = prompt('Укажите текст подсказки', '');
-        setInfoWindow(map, event.overlay, drawing.prop.info);
-        break;
-      case google.maps.drawing.OverlayType.POLYLINE:
-        drawing.prop.path = event.overlay.getPath().getArray();
-        break;
-      case google.maps.drawing.OverlayType.POLYGON:
-        break;
-      case google.maps.drawing.OverlayType.CIRCLE:
-        break;
-      case google.maps.drawing.OverlayType.RECTANGLE:
-        break; 
-    }
-    console.log(drawing);
   });
-}
 
-function setInfoWindow(map, marker, content)
-{
-  if(content)
+  function setInstrument(instrument)
   {
-    google.maps.event.addListener(marker, 'click', function()
+    var activeClass = 'drawings-instruments__btn_active';
+    var instrumentName = $(instrument).data('instrument');
+    $('#instruments')
+      .children()
+      .removeClass(activeClass);
+
+    $(instrument)
+      .addClass(activeClass);
+    
+    switch(instrumentName)
     {
-      if(typeof infoWindow != 'undefined') infoWindow.close(); 
-      infoWindow = new google.maps.InfoWindow({
-        content: content,
-        maxWidth: 200
-      });
-      infoWindow.open(map, marker);
+      case 'edit':
+        setEditStatus(true);
+        map.data.setDrawingMode(null);
+        break;
+
+      case null:
+        setEditStatus(false);
+        map.data.setDrawingMode(instrumentName);    
+        break;
+
+      default:
+        setEditStatus(false);
+        map.data.setDrawingMode(instrumentName);
+        break;
+    }
+  }
+
+  function setEditStatus(status)
+  {
+    map.data.setStyle({
+      editable: status,
+      draggable: status
     });
   }
 }
 
-function draw(type)
+function initDrawingList()
 {
-  this.type = type;
-  this.prop = {};
-  return this;
+  $('#drawings-list')
+    .click(function(e)
+    {
+      var listEvent = $(e.target).data('btn');
+      if(listEvent)
+      {
+        var listItem = $(e.target).closest('.drawings-list__item');
+        var feature = listItem.data('feature');
+        switch(listEvent)
+        {
+          case 'drawing-delete':
+            map.data.remove(feature);
+            listItem.remove();
+            break;
+        }
+      }
+    });
+
+  map.data.addListener('addfeature', function(drawing)
+  {
+    $(
+      '<li class="drawings-list__item">' +
+        '<div class="drawing-info"><span class="drawing-info__title">'+ drawing.feature.getGeometry().getType() +'</span></div>' +
+        '<div class="drawing-tools">' +
+          '<button class="drawing-tools__btn" data-btn="drawing-delete">Delete</button>' +
+        '</div>' +
+      '</li>'
+    )
+    .data('feature', drawing.feature)
+    .appendTo('#drawings-list');
+  });
+}
+
+function initMapControlTools()
+{
+  $('#drawings-state').click(function(e)
+  {
+    var state = $(e.target).data('btn');
+    if(state)
+    {
+      switch(state)
+      {
+        case 'map-save':
+          map.data.toGeoJson(function(geoJson)
+          {
+            console.log(geoJson);
+          });
+          break;
+
+        case 'map-reset':
+          if(confirm('Удалить все элементы?'))
+          {
+            map.data.forEach(function(feature)
+            {
+              map.data.remove(feature);
+            });
+            $('#drawings-list').html('');
+          }
+          break;
+      }
+    }
+  });
 }
