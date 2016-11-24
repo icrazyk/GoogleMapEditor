@@ -98,7 +98,8 @@ function initDrawingList()
         '</div>' +
       '</li>'
     )
-    .data({'feature': drawing.feature, 'feature-id': drawing.feature.getProperty('id')})
+    .data({'feature': drawing.feature})
+    .attr({'data-feature-id': drawing.feature.getProperty('id')})
     .mouseover(function()
     {
       map.data.revertStyle();
@@ -109,6 +110,19 @@ function initDrawingList()
       map.data.revertStyle();
     })
     .appendTo('#drawings-list');
+  });
+
+  map.data.addListener('mouseover', function(event) {
+    var id = event.feature.getProperty('id');
+    $('#drawings-list')
+      .find('[data-feature-id="'+ id +'"]')
+      .addClass('drawings-list__item_hover');
+  });
+
+  map.data.addListener('mouseout', function(event) {
+    $('#drawings-list')
+      .children()
+      .removeClass('drawings-list__item_hover');
   });
 }
 
