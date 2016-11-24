@@ -83,6 +83,13 @@ function initDrawingList()
 
   map.data.addListener('addfeature', function(drawing)
   {
+    // add id property
+
+    drawing.feature.setProperty('id', getRandomInt());
+
+
+    // add to list
+
     $(
       '<li class="drawings-list__item">' +
         '<div class="drawing-info"><span class="drawing-info__title">'+ drawing.feature.getGeometry().getType() +'</span></div>' +
@@ -91,14 +98,15 @@ function initDrawingList()
         '</div>' +
       '</li>'
     )
-    .data('feature', drawing.feature)
+    .data({'feature': drawing.feature, 'feature-id': drawing.feature.getProperty('id')})
     .mouseover(function()
     {
-      console.log('Навели');
+      map.data.revertStyle();
+      map.data.overrideStyle($(this).data('feature'), {strokeWeight: 8, animation: google.maps.Animation.BOUNCE});
     })
     .mouseout(function()
     {
-      console.log('НЕ навели');
+      map.data.revertStyle();
     })
     .appendTo('#drawings-list');
   });
@@ -150,4 +158,11 @@ function initDataLayerStyles(editable)
     }
     return prop;
   });
+}
+
+function getRandomInt()
+{
+  var min = 0;
+  var max = 99999999;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

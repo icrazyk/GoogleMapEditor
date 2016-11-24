@@ -6,6 +6,7 @@ body
 	padding: 0; 
 }
 
+/* layout */
 .map
 {
   display: flex;
@@ -24,7 +25,28 @@ body
   padding: 10px;
 }
 
+/* drawing instrument widget */
 .drawings-instruments__btn_active
 {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* drawing list widget */
+.drawings-list
+{
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.drawings-list__item
+{
+  margin-bottom: 5px;
+  padding: 5px 5px;
+}
+
+.drawings-list__item_hover,
+.drawings-list__item:hover
+{
+  background-color: rgba(0, 0, 0, 0.1);
 }
