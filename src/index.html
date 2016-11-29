@@ -7,9 +7,10 @@
 	<link rel="stylesheet" href="style/style.css">
 </head>
 <body>
+
   <div class="ggj">
-  	<div id="map" class="ggj-container"></div>
-    <div id="map-control" class="ggj-control">
+  	<div class="ggj-map"></div>
+    <div class="ggj-control">
       <div class="ggj-control__inner">
         <div class="ggj-widgets">
           
@@ -17,8 +18,8 @@
     				<div class="ggj-widget">
     					<h3 class="ggj-widget__head">Tools</h3>
     					<div class="ggj-widget__content">
-    						<div class="ggj-brush" id="instruments">
-    							<button class="ggj-brush__btn ggj-brush__btn_active" data-instrument="null">View</button>
+    						<div class="ggj-brush">
+    							<button class="ggj-brush__btn ggj-brush__btn_active" data-instrument="view">View</button>
     							<button class="ggj-brush__btn" data-instrument="edit">Edit</button>
     							<button class="ggj-brush__btn" data-instrument="Point">Point</button>
     							<button class="ggj-brush__btn" data-instrument="LineString">Polyline</button>
@@ -32,7 +33,7 @@
     				<div class="ggj-widget">
     					<h3 class="ggj-widget__head">Layers</h3>
     					<div class="ggj-widget__content">
-    						<ol class="ggj-drawings" id="drawings-list"></ol>
+    						<ol class="ggj-drawings"></ol>
     					</div>
     				</div>
     			</div>
@@ -41,7 +42,7 @@
     				<div class="ggj-widget">
     					<h3 class="ggj-widget__head">Map</h3>
     					<div class="ggj-widget__content">
-    						<div class="ggj-dwstate" id="drawings-state">
+    						<div class="ggj-dwstate">
     							<button class="ggj-dwstate__btn" data-btn="map-save">Save</button>
     							<button class="ggj-dwstate__btn" data-btn="map-reset">Reset</button>
     						</div>
@@ -57,8 +58,9 @@
       </div>
 		</div>
   </div>
-	<div class="jsonOut"></div>
+
   <script src="../node_modules/jquery/dist/jquery.js"></script>
+  <script src="js/jquery.GoogleGeoJson.js"></script>
 	<script src="js/script.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwrHUs90aEpc53LdRRiprNimnHboRHOUQ&callback=initMap"></script>
 </body>
