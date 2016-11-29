@@ -27,7 +27,7 @@ function initInstruments()
 
   function setInstrument(instrument)
   {
-    var activeClass = 'drawings-instruments__btn_active';
+    var activeClass = 'ggj-brush__btn_active';
     var instrumentName = $(instrument).data('instrument');
     $('#instruments')
       .children()
@@ -69,7 +69,7 @@ function initDrawingList()
       var listEvent = $(e.target).data('btn');
       if(listEvent)
       {
-        var listItem = $(e.target).closest('.drawings-list__item');
+        var listItem = $(e.target).closest('.ggj-drawings__item');
         var feature = listItem.data('feature');
         switch(listEvent)
         {
@@ -91,10 +91,18 @@ function initDrawingList()
     // add to list
 
     $(
-      '<li class="drawings-list__item">' +
-        '<div class="drawing-info"><span class="drawing-info__title">'+ drawing.feature.getGeometry().getType() +'</span></div>' +
-        '<div class="drawing-tools">' +
-          '<button class="drawing-tools__btn" data-btn="drawing-delete">Delete</button>' +
+      '<li class="ggj-drawings__item">' +
+        '<div class="ggj-drawing">' +
+          '<div class="ggj-drawing__content">' +
+            '<div class="ggj-dwcontent">' +
+              '<div class="ggj-dwcontent__title">'+ drawing.feature.getGeometry().getType() +'</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ggj-drawing__tool">' +
+            '<div class="ggj-dwtool">' +
+              '<button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button>' +
+            '</div>' +
+          '</div>' +
         '</div>' +
       '</li>'
     )
@@ -116,13 +124,13 @@ function initDrawingList()
     var id = event.feature.getProperty('id');
     $('#drawings-list')
       .find('[data-feature-id="'+ id +'"]')
-      .addClass('drawings-list__item_hover');
+      .addClass('ggj-drawings__item_hover');
   });
 
   map.data.addListener('mouseout', function(event) {
     $('#drawings-list')
       .children()
-      .removeClass('drawings-list__item_hover');
+      .removeClass('ggj-drawings__item_hover');
   });
 }
 
