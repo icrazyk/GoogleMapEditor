@@ -173,6 +173,7 @@
       .click(function()
       {
         $(self).toggleClass('ggj_control_hidden');
+        google.maps.event.trigger(map, 'resize');
       });
 
       //
