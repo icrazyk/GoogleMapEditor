@@ -1,11 +1,10 @@
 {
-  "name": "google-map-editor",
+  "name": "google-geojson",
   "version": "0.1.0",
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "normalize.css": "^5.0.0",
-    "jquery": "^3.1.1"
+
   },
   "devDependencies": {
     "express": "^4.14.0"
