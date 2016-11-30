@@ -7,66 +7,60 @@
 	<link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-  <div class="map">
-  	<div id="map" class="map-container"></div>
-    <div id="map-control" class="map-control">
-			<div class="map-control__widget">
-				<div class="widget-control">
-					<h3 class="widget-control__head">Tools</h3>
-					<div class="widget-control__drawings-instruments">
-						<div class="drawings-instruments" id="instruments">
-							<button class="drawings-instruments__btn drawings-instruments__btn_active" data-instrument="null">View</button>
-							<button class="drawings-instruments__btn" data-instrument="edit">Edit</button>
-							<button class="drawings-instruments__btn" data-instrument="Point">Point</button>
-							<button class="drawings-instruments__btn" data-instrument="LineString">Polyline</button>
-							<button class="drawings-instruments__btn" data-instrument="Polygon">Polygon</button>
-						</div>
-					</div>
-					<!--
-					<div class="widget-control__instrument-settings">
-						<div class="instrument-settings">
-							<h4 class="instrument-settings__head">Tool settings</h4>
-							<div class="instrument-settings__list">
-								<ul class="insset-list">
-									<li class="insset-list__item" data-available="Point">
-										<div class="insset">
-											<div class="insset__title">Info window</div>
-											<div class="insset__val">
-												<input type="text" name="info-window" disabled>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
 
-					</div>
-					-->
-				</div>
-			</div>
-			<div class="map-control__widget">
-				<div class="widget-control">
-					<h3 class="widget-control__head">Layers</h3>
-					<div class="widget-control__drawings-list">
-						<ol class="drawings-list" id="drawings-list"></ol>
-					</div>
-				</div>
-			</div>
-			<div class="map-control__widget">
-				<div class="widget-control">
-					<h3 class="widget-control__head">Map</h3>
-					<div class="widget-control__drawings-state">
-						<div class="drawings-state" id="drawings-state">
-							<button class="drawings-state__btn" data-btn="map-save">Save</button>
-							<button class="drawings-state__btn" data-btn="map-reset">Reset</button>
-						</div>
-					</div>
-				</div>
-			</div>
+  <div class="ggj">
+  	<div class="ggj-map"></div>
+    <div class="ggj-control">
+      <div class="ggj-control__inner">
+        <div class="ggj-widgets">
+          
+    			<div class="ggj-widgets__item">
+    				<div class="ggj-widget">
+    					<h3 class="ggj-widget__head">Tools</h3>
+    					<div class="ggj-widget__content">
+    						<div class="ggj-brush">
+    							<button class="ggj-brush__btn ggj-brush__btn_active" data-instrument="view">View</button>
+    							<button class="ggj-brush__btn" data-instrument="edit">Edit</button>
+    							<button class="ggj-brush__btn" data-instrument="Point">Point</button>
+    							<button class="ggj-brush__btn" data-instrument="LineString">Polyline</button>
+    							<button class="ggj-brush__btn" data-instrument="Polygon">Polygon</button>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+
+    			<div class="ggj-widgets__item">
+    				<div class="ggj-widget">
+    					<h3 class="ggj-widget__head">Layers</h3>
+    					<div class="ggj-widget__content">
+    						<ol class="ggj-drawings"></ol>
+    					</div>
+    				</div>
+    			</div>
+
+    			<div class="ggj-widgets__item">
+    				<div class="ggj-widget">
+    					<h3 class="ggj-widget__head">Map</h3>
+    					<div class="ggj-widget__content">
+    						<div class="ggj-dwstate">
+    							<button class="ggj-dwstate__btn" data-btn="map-save">Save</button>
+    							<button class="ggj-dwstate__btn" data-btn="map-reset">Reset</button>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+
+        </div>
+      </div>
+      <div class="ggj-ctrl-trigger">
+        <span class="ggj-ctrl-trigger__show">Show</span>
+        <div class="ggj-ctrl-trigger__hide">Hide</div>
+      </div>
 		</div>
   </div>
-	<div class="jsonOut"></div>
+
   <script src="../node_modules/jquery/dist/jquery.js"></script>
+  <script src="js/jquery.GoogleGeoJson.js"></script>
 	<script src="js/script.js"></script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwrHUs90aEpc53LdRRiprNimnHboRHOUQ&callback=initMap"></script>
 </body>

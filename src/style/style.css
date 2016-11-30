@@ -6,47 +6,58 @@ body
 	padding: 0; 
 }
 
+*
+{
+  box-sizing: border-box;
+}
+
 /* layout */
-.map
+.ggj
 {
   display: flex;
   height: 100%;
 }
 
-.map-container 
+.ggj-map 
 { 
   flex-grow: 1;
 }
 
-.map-control
+.ggj-control
 {
   width: 300px;
   background: #fff;
+}
+
+.ggj-control__inner
+{
+  height: 100%;
+  overflow-y: auto;
   padding: 10px;
 }
 
-/* drawing instrument widget */
-.drawings-instruments__btn_active
+/* widget - brush */
+.ggj-brush__btn_active
 {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-/* drawing list widget */
-.drawings-list
+/* widget - drawing list  */
+.ggj-drawings
 {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.drawings-list__item
+.ggj-drawings__item
 {
   margin-bottom: 5px;
   padding: 5px 5px;
 }
 
-.drawings-list__item_hover,
-.drawings-list__item:hover
+.ggj-drawings__item_hover,
+.ggj-drawings__item:hover
 {
   background-color: rgba(0, 0, 0, 0.1);
 }
