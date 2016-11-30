@@ -25,15 +25,59 @@ body
 
 .ggj-control
 {
-  width: 300px;
   background: #fff;
+  position: relative;
 }
 
-.ggj-control__inner
+.ggj-control__content
 {
+  width: 300px;
   height: 100%;
   overflow-y: auto;
   padding: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.ggj_control_hidden .ggj-control__content
+{
+  width: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.ggj-control__trigger
+{
+  position: absolute;
+  z-index: 2;
+  left: -80px;
+  top: 40px;
+}
+
+/* trigger */
+
+.ggj-ctrl-trigger
+{
+  font-size: 10px;
+  background: #fff;
+  padding: 15px 10px;
+  width: 80px;
+  cursor: pointer;
+}
+
+.ggj-ctrl-trigger__show
+{
+  display: none;
+}
+
+.ggj_control_hidden .ggj-ctrl-trigger__show
+{
+  display: block;
+}
+
+.ggj_control_hidden .ggj-ctrl-trigger__hide
+{
+  display: none;
 }
 
 /* widget - brush */

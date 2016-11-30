@@ -166,6 +166,15 @@
         }
       });
 
+      // ctrl trigger
+
+      $(this)
+      .find('.ggj-ctrl-trigger')
+      .click(function()
+      {
+        $(self).toggleClass('ggj_control_hidden');
+      });
+
       //
       // functions
       //
