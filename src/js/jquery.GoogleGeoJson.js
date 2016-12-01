@@ -6,16 +6,12 @@
     drawing_item: '@@import drawing_item.html'
   };
 
-  $.fn.GoogleGeoJson = function()
+  var methods =
   {
-    return this.each(function()
+    init: function(config)
     {
       var self = this;
-
-      //
-      // init
-      //
-
+      
       $(this).append(tpl.wrap);
 
       var map = new google.maps.Map($(this).find('.ggj-map')[0], 
@@ -23,6 +19,8 @@
         center: {lat: 54, lng: 35},
         zoom: 5
       });
+
+      this.map = map;
 
       setDataLayerStyle();
 
@@ -197,13 +195,50 @@
           return prop;
         });
       };
+    },
+    addGeoJson: function(geoJson)
+    {
+      return this.map.data.addGeoJson(geoJson);
+    },
+    loadGeoJson: function(geoJsonUrl)
+    {
+      return this.map.data.loadGeoJson(geoJsonUrl);
+    },
+    toGeoJson: function(handlerJson)
+    {
+      return this.map.data.toGeoJson(handlerJson);
+    }
+  }
 
-      function getRandomInt()
+  function getRandomInt()
+  {
+    var min = 0;
+    var max = 99999999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  //
+  // jQuery interface
+  //
+
+  $.fn.GoogleGeoJson = function(method)
+  {
+    var args = arguments;
+
+    return this.each(function()
+    {
+      if(methods[method])
       {
-        var min = 0;
-        var max = 99999999;
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      };
+        return methods[method].apply(this, Array.prototype.slice.call(args, 1));
+      }
+      else if(typeof method === 'object' || ! method)
+      {
+        return methods.init.apply(this, args);
+      }
+      else
+      {
+        $.error('The method '+ method +' does not exist on jQuery.GoogleGeoJson');
+      }
     });
   };
 })(jQuery);

@@ -5,7 +5,6 @@ const del = require('del');
 const sourcemaps = require('gulp-sourcemaps');
 const inject = require('gulp-js-html-inject');
 const stylus = require('gulp-stylus');
-const rigger = require('gulp-rigger');
 const gulpIf = require('gulp-if');
 const gulp = require('gulp');
 
