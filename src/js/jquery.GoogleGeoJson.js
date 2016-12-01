@@ -1,5 +1,11 @@
 (function($) 
 {
+  var tpl = 
+  {
+    wrap: '@@import wrap.html',
+    drawing_item: '@@import drawing_item.html'
+  };
+
   $.fn.GoogleGeoJson = function()
   {
     return this.each(function()
@@ -9,6 +15,8 @@
       //
       // init
       //
+
+      $(this).append(tpl.wrap);
 
       var map = new google.maps.Map($(this).find('.ggj-map')[0], 
       {
@@ -90,34 +98,24 @@
 
         // add to DOM
 
-        $(
-          '<li class="ggj-drawings__item">' +
-            '<div class="ggj-drawing">' +
-              '<div class="ggj-drawing__content">' +
-                '<div class="ggj-dwcontent">' +
-                  '<div class="ggj-dwcontent__title">'+ drawing.feature.getGeometry().getType() +'</div>' +
-                '</div>' +
-              '</div>' +
-              '<div class="ggj-drawing__tool">' +
-                '<div class="ggj-dwtool">' +
-                  '<button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button>' +
-                '</div>' +
-              '</div>' +
-            '</div>' +
-          '</li>'
-        )
-        .data({'feature': drawing.feature})
-        .attr({'data-feature-id': drawing.feature.getProperty('id')})
-        .mouseover(function()
-        {
-          map.data.revertStyle();
-          map.data.overrideStyle($(this).data('feature'), {strokeWeight: 8, animation: google.maps.Animation.BOUNCE});
-        })
-        .mouseout(function()
-        {
-          map.data.revertStyle();
-        })
-        .appendTo(drawings);
+        var drawingItem = $(tpl.drawing_item)
+          .data({'feature': drawing.feature})
+          .attr({'data-feature-id': drawing.feature.getProperty('id')})
+          .mouseover(function()
+          {
+            map.data.revertStyle();
+            map.data.overrideStyle($(this).data('feature'), {strokeWeight: 8, animation: google.maps.Animation.BOUNCE});
+          })
+          .mouseout(function()
+          {
+            map.data.revertStyle();
+          });
+
+        $(drawingItem)
+          .find('.ggj-dwcontent__title')
+          .html(drawing.feature.getGeometry().getType());
+        
+        $(drawingItem).appendTo(drawings);
       });
 
       map.data.addListener('mouseover', function(event) {

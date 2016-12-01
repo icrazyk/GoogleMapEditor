@@ -9,6 +9,7 @@
     "express": "^4.14.0",
     "gulp": "^3.9.1",
     "gulp-if": "^2.0.2",
+    "gulp-js-html-inject": "0.0.1",
     "gulp-sourcemaps": "^1.9.1",
     "gulp-stylus": "^2.6.0"
   },

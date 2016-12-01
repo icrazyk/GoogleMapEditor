@@ -1,3 +1,3 @@
 function initMap() {
-  $('.ggj').GoogleGeoJson();
+  $('.demo-map').GoogleGeoJson();
 }

@@ -1,5 +1,11 @@
 (function($) 
 {
+  var tpl = 
+  {
+    wrap: '<div class="ggj"><div class="ggj-map"></div><div class="ggj-control"><div class="ggj-control__content"><div class="ggj-widgets"><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Tools</h3><div class="ggj-widget__content"><div class="ggj-brush"><button class="ggj-brush__btn ggj-brush__btn_active" data-instrument="view">View</button> <button class="ggj-brush__btn" data-instrument="edit">Edit</button> <button class="ggj-brush__btn" data-instrument="Point">Point</button> <button class="ggj-brush__btn" data-instrument="LineString">Polyline</button> <button class="ggj-brush__btn" data-instrument="Polygon">Polygon</button></div></div></div></div><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Drawings</h3><div class="ggj-widget__content"><ol class="ggj-drawings"></ol></div></div></div><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Map</h3><div class="ggj-widget__content"><div class="ggj-dwstate"><button class="ggj-dwstate__btn" data-btn="map-save">Save</button> <button class="ggj-dwstate__btn" data-btn="map-reset">Reset</button></div></div></div></div></div></div><div class="ggj-control__trigger"><div class="ggj-ctrl-trigger"><span class="ggj-ctrl-trigger__show">&#60;&#60;&#60; Show</span><div class="ggj-ctrl-trigger__hide">&#62;&#62;&#62; Hide</div></div></div></div></div>',
+    drawing_item: '<li class="ggj-drawings__item"><div class="ggj-drawing"><div class="ggj-drawing__content"><div class="ggj-dwcontent"><div class="ggj-dwcontent__title"></div></div></div><div class="ggj-drawing__tool"><div class="ggj-dwtool"><button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button></div></div></div></li>'
+  };
+
   $.fn.GoogleGeoJson = function()
   {
     return this.each(function()
@@ -9,6 +15,8 @@
       //
       // init
       //
+
+      $(this).append(tpl.wrap);
 
       var map = new google.maps.Map($(this).find('.ggj-map')[0], 
       {
@@ -90,34 +98,24 @@
 
         // add to DOM
 
-        $(
-          '<li class="ggj-drawings__item">' +
-            '<div class="ggj-drawing">' +
-              '<div class="ggj-drawing__content">' +
-                '<div class="ggj-dwcontent">' +
-                  '<div class="ggj-dwcontent__title">'+ drawing.feature.getGeometry().getType() +'</div>' +
-                '</div>' +
-              '</div>' +
-              '<div class="ggj-drawing__tool">' +
-                '<div class="ggj-dwtool">' +
-                  '<button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button>' +
-                '</div>' +
-              '</div>' +
-            '</div>' +
-          '</li>'
-        )
-        .data({'feature': drawing.feature})
-        .attr({'data-feature-id': drawing.feature.getProperty('id')})
-        .mouseover(function()
-        {
-          map.data.revertStyle();
-          map.data.overrideStyle($(this).data('feature'), {strokeWeight: 8, animation: google.maps.Animation.BOUNCE});
-        })
-        .mouseout(function()
-        {
-          map.data.revertStyle();
-        })
-        .appendTo(drawings);
+        var drawingItem = $(tpl.drawing_item)
+          .data({'feature': drawing.feature})
+          .attr({'data-feature-id': drawing.feature.getProperty('id')})
+          .mouseover(function()
+          {
+            map.data.revertStyle();
+            map.data.overrideStyle($(this).data('feature'), {strokeWeight: 8, animation: google.maps.Animation.BOUNCE});
+          })
+          .mouseout(function()
+          {
+            map.data.revertStyle();
+          });
+
+        $(drawingItem)
+          .find('.ggj-dwcontent__title')
+          .html(drawing.feature.getGeometry().getType());
+        
+        $(drawingItem).appendTo(drawings);
       });
 
       map.data.addListener('mouseover', function(event) {

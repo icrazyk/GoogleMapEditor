@@ -1,10 +1,13 @@
 'use strict';
 
-const gulp = require('gulp');
-const stylus = require('gulp-stylus');
-const sourcemaps = require('gulp-sourcemaps');
-const gulpIf = require('gulp-if');
 const del = require('del');
+
+const sourcemaps = require('gulp-sourcemaps');
+const inject = require('gulp-js-html-inject');
+const stylus = require('gulp-stylus');
+const rigger = require('gulp-rigger');
+const gulpIf = require('gulp-if');
+const gulp = require('gulp');
 
 const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'development';
 
@@ -20,6 +23,9 @@ gulp.task('styles', function()
 gulp.task('js', function()
 {
   return gulp.src('./src/js/*.js')
+    .pipe(inject({
+      basepath: './src/js/tpl/'
+    }))
     .pipe(gulp.dest('./build/'));
 });
 
@@ -31,7 +37,7 @@ gulp.task('clean', function()
 gulp.task('watch', function()
 {
   gulp.watch('./src/styles/*.styl', ['styles']);
-  gulp.watch('./src/js/*.js', ['js']);
+  gulp.watch('./src/**/*.{js,html}', ['js']);
 });
 
 gulp.task('build', ['clean', 'styles', 'js']);
