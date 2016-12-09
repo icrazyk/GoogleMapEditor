@@ -1,7 +1,17 @@
 function initMap() {
-  $('.demo-map').GoogleGeoJson();
-  $('.demo-map').GoogleGeoJson('addGeoJson', google);
-  $('.demo-map').GoogleGeoJson('toGeoJson', jsonHandler);
+  $('.demo-map').GoogleGeoJson({
+    center:
+    {
+      lat: 51.774175,
+      lng: 55.102594
+    },
+    zoom: 10
+  });
+}
+
+function jsonHandler(json)
+{
+  console.log(json);
 }
 
 var google =
@@ -150,9 +160,4 @@ var google =
       }
     }
   ]
-}
-
-function jsonHandler(json)
-{
-  return json;
 }
