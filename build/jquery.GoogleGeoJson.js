@@ -3,7 +3,7 @@
   var tpl = 
   {
     wrap: '<div class="ggj"><div class="ggj-map"></div><div class="ggj-control"><div class="ggj-control__content"><div class="ggj-widgets"><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Tools</h3><div class="ggj-widget__content"><div class="ggj-brush"><button class="ggj-brush__btn ggj-brush__btn_active" data-instrument="view">View</button> <button class="ggj-brush__btn" data-instrument="edit">Edit</button> <button class="ggj-brush__btn" data-instrument="Point">Point</button> <button class="ggj-brush__btn" data-instrument="LineString">Polyline</button> <button class="ggj-brush__btn" data-instrument="Polygon">Polygon</button></div></div></div></div><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Drawings</h3><div class="ggj-widget__content"><ol class="ggj-drawings"></ol></div></div></div><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Map</h3><div class="ggj-widget__content"><div class="ggj-dwstate"><button class="ggj-dwstate__btn" data-btn="map-save">Save</button> <button class="ggj-dwstate__btn" data-btn="map-reset">Reset</button></div></div></div></div></div></div><div class="ggj-control__trigger"><div class="ggj-ctrl-trigger"><span class="ggj-ctrl-trigger__show">&#60;&#60;&#60; Show</span><div class="ggj-ctrl-trigger__hide">&#62;&#62;&#62; Hide</div></div></div></div></div>',
-    drawing_item: '<li class="ggj-drawings__item"><div class="ggj-drawing"><div class="ggj-drawing__content"><div class="ggj-dwcontent"><div class="ggj-dwcontent__title"></div></div></div><div class="ggj-drawing__tool"><div class="ggj-dwtool"><button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button></div></div></div></li>'
+    drawing_item: '<li class="ggj-drawings__item"><div class="ggj-drawing"><div class="ggj-drawing__content"><div class="ggj-dwcontent"><div class="ggj-dwcontent__title"></div></div></div><div class="ggj-drawing__editor"><form class="ggj-dweditor"><div class="ggj-dweditor__prop"><p class="ggj-dweditor-prop"><label for="name" class="ggj-dweditor-prop__label">Name</label><br><input type="text" name="name"></p><p class="ggj-dweditor-prop"><label for="stroke" class="ggj-dweditor-prop__label">Stroke</label><br><input type="number" name="stroke"></p><p class="ggj-dweditor-prop"><label for="stroke-color" class="ggj-dweditor-prop__label">Stroke color</label><br><input type="color" name="stroke-color"></p></div><div class="ggj-dweditor__tool"><p class="ggj-dweditor-tool"><button class="ggj-dweditor-tool__btn" name="save">Save</button> <button class="ggj-dweditor-tool__btn" name="cancel">Cancel</button></p></div></form></div><div class="ggj-drawing__tool"><div class="ggj-dwtool"><button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button> <button class="ggj-dwtool__btn" data-btn="drawing-rename">Rename</button></div></div></div></li>'
   };
 
   var methods =
@@ -91,6 +91,16 @@
                   map.data.remove(feature);
                   listItem.remove();
                   break;
+                case 'drawing-rename':
+                  var name = prompt('Write new name', feature.getProperty('name'));
+                  feature.setProperty('name', name);
+                  listItem.find('.ggj-dwcontent__title').text(name);
+                  break;
+                case 'drawing-edit':
+                  var name = prompt('Write new name', feature.getProperty('name'));
+                  feature.setProperty('name', name);
+                  listItem.find('.ggj-dwcontent__title').text(name);
+                  break;
               }
             }
           });
@@ -98,6 +108,7 @@
           map.data.addListener('addfeature', function(drawing)
           {
             drawing.feature.setProperty('id', getRandomInt());
+            drawing.feature.setProperty('name', drawing.feature.getGeometry().getType());
 
             // create, add handlers
 

@@ -5,9 +5,34 @@
         <div class="ggj-dwcontent__title"></div>
       </div>
     </div>
+    <div class="ggj-drawing__editor">
+      <form class="ggj-dweditor">
+        <div class="ggj-dweditor__prop">
+          <p class="ggj-dweditor-prop">
+            <label for="name" class="ggj-dweditor-prop__label">Name</label><br>
+            <input type="text" name="name">
+          </p>
+          <p class="ggj-dweditor-prop">
+            <label for="stroke" class="ggj-dweditor-prop__label">Stroke</label><br>
+            <input type="number" name="stroke">
+          </p>
+          <p class="ggj-dweditor-prop">
+            <label for="stroke-color" class="ggj-dweditor-prop__label">Stroke color</label><br>
+            <input type="color" name="stroke-color">
+          </p>
+        </div>
+        <div class="ggj-dweditor__tool">
+          <p class="ggj-dweditor-tool">
+            <button class="ggj-dweditor-tool__btn" name="save">Save</button>
+            <button class="ggj-dweditor-tool__btn" name="cancel">Cancel</button>
+          </p>
+        </div>
+      </form>
+    </div>
     <div class="ggj-drawing__tool">
       <div class="ggj-dwtool">
         <button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button>
+        <button class="ggj-dwtool__btn" data-btn="drawing-rename">Rename</button>
       </div>
     </div>
   </div>

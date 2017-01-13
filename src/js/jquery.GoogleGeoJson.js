@@ -91,6 +91,16 @@
                   map.data.remove(feature);
                   listItem.remove();
                   break;
+                case 'drawing-rename':
+                  var name = prompt('Write new name', feature.getProperty('name'));
+                  feature.setProperty('name', name);
+                  listItem.find('.ggj-dwcontent__title').text(name);
+                  break;
+                case 'drawing-edit':
+                  var name = prompt('Write new name', feature.getProperty('name'));
+                  feature.setProperty('name', name);
+                  listItem.find('.ggj-dwcontent__title').text(name);
+                  break;
               }
             }
           });
@@ -98,6 +108,7 @@
           map.data.addListener('addfeature', function(drawing)
           {
             drawing.feature.setProperty('id', getRandomInt());
+            drawing.feature.setProperty('name', drawing.feature.getGeometry().getType());
 
             // create, add handlers
 
