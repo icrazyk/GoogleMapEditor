@@ -25,11 +25,14 @@
   {
     init: function(options)
     {
-
-      var settings = $.extend( {
+      var settings = 
+      {
         center : {lat: 54, lng: 35},
-        zoom : 6
-      }, options);
+        zoom : 6,
+        mapTypeId: google.maps.MapTypeId.HYBRID
+      }
+
+      $.extend(settings, options);
       
       return this.each(function()
       {
