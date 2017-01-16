@@ -2,8 +2,23 @@
 {
   var tpl = 
   {
-    wrap: '<div class="ggj"><div class="ggj-map"></div><div class="ggj-control"><div class="ggj-control__content"><div class="ggj-widgets"><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Tools</h3><div class="ggj-widget__content"><div class="ggj-brush"><button class="ggj-brush__btn ggj-brush__btn_active" data-instrument="view">View</button> <button class="ggj-brush__btn" data-instrument="edit">Edit</button> <button class="ggj-brush__btn" data-instrument="Point">Point</button> <button class="ggj-brush__btn" data-instrument="LineString">Polyline</button> <button class="ggj-brush__btn" data-instrument="Polygon">Polygon</button></div></div></div></div><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Drawings</h3><div class="ggj-widget__content"><ol class="ggj-drawings"></ol></div></div></div><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Map</h3><div class="ggj-widget__content"><div class="ggj-dwstate"><button class="ggj-dwstate__btn" data-btn="map-save">Save</button> <button class="ggj-dwstate__btn" data-btn="map-reset">Reset</button></div></div></div></div></div></div><div class="ggj-control__trigger"><div class="ggj-ctrl-trigger"><span class="ggj-ctrl-trigger__show">&#60;&#60;&#60; Show</span><div class="ggj-ctrl-trigger__hide">&#62;&#62;&#62; Hide</div></div></div></div></div>',
-    drawing_item: '<li class="ggj-drawings__item"><div class="ggj-drawing"><div class="ggj-drawing__content"><div class="ggj-dwcontent"><div class="ggj-dwcontent__title"></div></div></div><div class="ggj-drawing__editor"><form class="ggj-dweditor"><div class="ggj-dweditor__prop"><p class="ggj-dweditor-prop"><label for="name" class="ggj-dweditor-prop__label">Name</label><br><input type="text" name="name"></p><p class="ggj-dweditor-prop"><label for="stroke" class="ggj-dweditor-prop__label">Stroke</label><br><input type="number" name="stroke"></p><p class="ggj-dweditor-prop"><label for="stroke-color" class="ggj-dweditor-prop__label">Stroke color</label><br><input type="color" name="stroke-color"></p></div><div class="ggj-dweditor__tool"><p class="ggj-dweditor-tool"><button class="ggj-dweditor-tool__btn" name="save">Save</button> <button class="ggj-dweditor-tool__btn" name="cancel">Cancel</button></p></div></form></div><div class="ggj-drawing__tool"><div class="ggj-dwtool"><button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button> <button class="ggj-dwtool__btn" data-btn="drawing-rename">Rename</button></div></div></div></li>'
+    "wrap": '<div class="ggj"><div class="ggj-map"></div><div class="ggj-control"><div class="ggj-control__content"><div class="ggj-widgets"><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Tools</h3><div class="ggj-widget__content"><div class="ggj-brush"><button class="ggj-brush__btn ggj-brush__btn_active" data-instrument="view">View</button> <button class="ggj-brush__btn" data-instrument="edit">Edit</button> <button class="ggj-brush__btn" data-instrument="Point">Point</button> <button class="ggj-brush__btn" data-instrument="LineString">LineString</button> <button class="ggj-brush__btn" data-instrument="Polygon">Polygon</button></div></div></div></div><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Drawings</h3><div class="ggj-widget__content"><ol class="ggj-drawings"></ol></div></div></div><div class="ggj-widgets__item"><div class="ggj-widget"><h3 class="ggj-widget__head">Map</h3><div class="ggj-widget__content"><div class="ggj-dwstate"><button class="ggj-dwstate__btn" data-btn="map-save">Save</button> <button class="ggj-dwstate__btn" data-btn="map-reset">Reset</button></div></div></div></div></div></div><div class="ggj-control__trigger"><div class="ggj-ctrl-trigger"><span class="ggj-ctrl-trigger__show">&#60;&#60;&#60; Show</span><div class="ggj-ctrl-trigger__hide">&#62;&#62;&#62; Hide</div></div></div></div></div>',
+    "drawing_item": '<li class="ggj-drawings__item"><div class="ggj-drawing"><div class="ggj-drawing__content"><div class="ggj-dwcontent"><div class="ggj-dwcontent__title"></div></div></div><div class="ggj-drawing__editor"><div class="ggj-dweditor"><div class="ggj-dweditor__prop"></div></div></div><div class="ggj-drawing__tool"><div class="ggj-dwtool"><button class="ggj-dwtool__btn" data-btn="drawing-delete">Delete</button> <button class="ggj-dwtool__btn" data-btn="drawing-show-properties">Show properties</button> <button class="ggj-dwtool__btn" data-btn="drawing-hide-properties">Hide properties</button></div></div></div></li>',
+    "editor": 
+    {
+      "Point": '<p class="ggj-dweditor-prop"><label for="name" class="ggj-dweditor-prop__label">Name</label><br><input type="text" name="name"></p>',
+      "LineString": '<p class="ggj-dweditor-prop"><label for="name" class="ggj-dweditor-prop__label">Name</label><br><input type="text" name="name"></p><p class="ggj-dweditor-prop"><label for="strokeColor" class="ggj-dweditor-prop__label">Stroke color</label><br><input type="color" name="strokeColor"></p><p class="ggj-dweditor-prop"><label for="strokeWeight" class="ggj-dweditor-prop__label">Stroke width</label><br><input type="number" name="strokeWeight" min="0" step="1"></p><p class="ggj-dweditor-prop"><label for="strokeOpacity" class="ggj-dweditor-prop__label">Stroke opacity</label><br><input type="number" name="strokeOpacity" min="0" max="1" step="0.1"></p>',
+      "Polygon": '<p class="ggj-dweditor-prop"><label for="name" class="ggj-dweditor-prop__label">Name</label><br><input type="text" name="name"></p><p class="ggj-dweditor-prop"><label for="strokeColor" class="ggj-dweditor-prop__label">Stroke color</label><br><input type="color" name="strokeColor"></p><p class="ggj-dweditor-prop"><label for="strokeWeight" class="ggj-dweditor-prop__label">Stroke width</label><br><input type="number" name="strokeWeight" min="0" step="1"></p><p class="ggj-dweditor-prop"><label for="strokeOpacity" class="ggj-dweditor-prop__label">Stroke opacity</label><br><input type="number" name="strokeOpacity" min="0" max="1" step="0.1"></p><p class="ggj-dweditor-prop"><label for="fillColor" class="ggj-dweditor-prop__label">Fill color</label><br><input type="color" name="fillColor"></p><p class="ggj-dweditor-prop"><label for="fillOpacity" class="ggj-dweditor-prop__label">Fill opacity</label><br><input type="number" name="fillOpacity" min="0" max="1" step="0.1"></p>'
+    }
+  };
+
+  var styles = 
+  {
+    'fillColor': '#0f8bff', 
+    'fillOpacity': 0.3, 
+    'strokeColor': '#0f8bff', 
+    'strokeOpacity': 0.8, 
+    'strokeWeight': 3
   };
 
   var methods =
@@ -91,16 +106,62 @@
                   map.data.remove(feature);
                   listItem.remove();
                   break;
-                case 'drawing-rename':
-                  var name = prompt('Write new name', feature.getProperty('name'));
-                  feature.setProperty('name', name);
-                  listItem.find('.ggj-dwcontent__title').text(name);
+                case 'drawing-show-properties':
+                  // console.log(listItem.find('.ggj-dweditor__prop').children());
+                  if(listItem.find('.ggj-dweditor__prop').children().length > 0) 
+                  {
+                    listItem
+                      .addClass('ggj-drawings__item_editor-active')
+                      .find('.ggj-drawing__content')
+                      .hide();
+                    return;
+                  }
+
+                  var type = feature.getGeometry().getType();
+
+                  listItem
+                    .addClass('ggj-drawings__item_editor-active')
+                    .find('.ggj-drawing__editor')
+                    .on('change.ggj', function(event)
+                    {
+                      var listItem = $(e.target).closest('.ggj-drawings__item');
+                      var feature = listItem.data('feature');
+
+                      feature.setProperty($(event.target).attr('name'), $(event.target).val());
+
+                      if($(event.target).attr('name') == 'name')
+                      {
+                        listItem
+                          .find('.ggj-dwcontent__title')
+                          .text($(event.target).val())
+                      }
+                    })
+                    .find('.ggj-dweditor__prop')
+                    .append(tpl.editor[type]);
+                  
+                  listItem
+                    .find('.ggj-drawing__content')
+                    .hide();
+
+                  var properties = ['name','fillColor', 'fillOpacity', 'strokeColor', 'strokeOpacity', 'strokeWeight'];
+
+                  for(index in properties)
+                  {
+                    var property = feature.getProperty(properties[index]) || styles[properties[index]];
+
+                    if(property)
+                    {
+                      listItem
+                        .find('input[name="' + properties[index] + '"]')
+                        .val(property);
+                    }
+                  }
                   break;
-                case 'drawing-edit':
-                  var name = prompt('Write new name', feature.getProperty('name'));
-                  feature.setProperty('name', name);
-                  listItem.find('.ggj-dwcontent__title').text(name);
-                  break;
+                case 'drawing-hide-properties':
+                  listItem
+                    .removeClass('ggj-drawings__item_editor-active')
+                    .find('.ggj-drawing__content')
+                    .show();
               }
             }
           });
@@ -118,7 +179,12 @@
               .mouseover(function()
               {
                 map.data.revertStyle();
-                map.data.overrideStyle($(this).data('feature'), {strokeWeight: 8, animation: google.maps.Animation.BOUNCE});
+                var hilight = {
+                  strokeWeight: 8,
+                  animation: google.maps.Animation.BOUNCE
+                }
+                if($(this).hasClass('ggj-drawings__item_editor-active')) delete hilight.strokeWeight; 
+                map.data.overrideStyle($(this).data('feature'), hilight);
               })
               .mouseout(function()
               {
@@ -204,19 +270,29 @@
         function setDataLayerStyle(editable) 
         {
           map.data.setStyle(function(feature)
-          {
-            var prop = 
+          { 
+            var prop = {};
+            
+            for(name in styles)
             {
-              fillColor: 'blue',
-              strokeColor: 'blue'
-            };
+              var style = feature.getProperty(name);
 
+              if(style)
+              {
+                prop[name] = style; 
+              }
+              else
+              {
+                prop[name] = styles[name];
+              }
+            }
+            
             if(editable)
             {
               prop.editable = true;
               prop.draggable = true;
             }
-            
+
             return prop;
           });
         };
@@ -289,10 +365,19 @@
     }
   };
 
+  //
+  // Functions
+  //
+
   function getRandomInt()
   {
     var min = 0;
     var max = 99999999;
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
+
+  function getFeatureStyle(map, feature)
+  {
+
+  }
 })(jQuery);

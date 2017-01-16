@@ -45,7 +45,6 @@
     
     &__show
       display: none
-      
       .ggj_control_hidden &
         display: block
     
@@ -53,21 +52,38 @@
       
       .ggj_control_hidden &
         display: none
-
+  
+  &-drawings
+    margin 0
+    padding 0
+    list-style-type none
+    &__item
+      margin-bottom 5px
+      padding 5px 5px
+      border 1px solid lighten(#ccc, 50%)
+      &_hover
+      &:hover
+        background-color rgba(0, 0, 0, 0.1)
+  
+  &-drawing
+    &__editor
+      display none
+      ^[0]-drawings__item_editor-active &
+        display block
+  
+  &-dweditor-prop
+    margin-top 0
+  
+  &-dwtool
+    &__btn
+      &[data-btn="drawing-hide-properties"]
+        display none
+        ^[0]-drawings__item_editor-active &
+          display inline-block
+      &[data-btn="drawing-show-properties"]
+        ^[0]-drawings__item_editor-active &
+          display none
 /* widget - brush */
 .ggj-brush__btn_active
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5)
-
-/* widget - drawing list  */
-.ggj-drawings
-  margin: 0
-  padding: 0
-  list-style-type: none
-
-.ggj-drawings__item
-  margin-bottom: 5px
-  padding: 5px 5px
-
-.ggj-drawings__item_hover
-.ggj-drawings__item:hover
-  background-color: rgba(0, 0, 0, 0.1)
+  

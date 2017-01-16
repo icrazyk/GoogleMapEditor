@@ -2,8 +2,23 @@
 {
   var tpl = 
   {
-    wrap: '@@import wrap.html',
-    drawing_item: '@@import drawing_item.html'
+    "wrap": '@@import wrap.html',
+    "drawing_item": '@@import drawing_item.html',
+    "editor": 
+    {
+      "Point": '@@import editor_point.html',
+      "LineString": '@@import editor_polyline.html',
+      "Polygon": '@@import editor_polygon.html'
+    }
+  };
+
+  var styles = 
+  {
+    'fillColor': '#0f8bff', 
+    'fillOpacity': 0.3, 
+    'strokeColor': '#0f8bff', 
+    'strokeOpacity': 0.8, 
+    'strokeWeight': 3
   };
 
   var methods =
@@ -91,16 +106,62 @@
                   map.data.remove(feature);
                   listItem.remove();
                   break;
-                case 'drawing-rename':
-                  var name = prompt('Write new name', feature.getProperty('name'));
-                  feature.setProperty('name', name);
-                  listItem.find('.ggj-dwcontent__title').text(name);
+                case 'drawing-show-properties':
+                  // console.log(listItem.find('.ggj-dweditor__prop').children());
+                  if(listItem.find('.ggj-dweditor__prop').children().length > 0) 
+                  {
+                    listItem
+                      .addClass('ggj-drawings__item_editor-active')
+                      .find('.ggj-drawing__content')
+                      .hide();
+                    return;
+                  }
+
+                  var type = feature.getGeometry().getType();
+
+                  listItem
+                    .addClass('ggj-drawings__item_editor-active')
+                    .find('.ggj-drawing__editor')
+                    .on('change.ggj', function(event)
+                    {
+                      var listItem = $(e.target).closest('.ggj-drawings__item');
+                      var feature = listItem.data('feature');
+
+                      feature.setProperty($(event.target).attr('name'), $(event.target).val());
+
+                      if($(event.target).attr('name') == 'name')
+                      {
+                        listItem
+                          .find('.ggj-dwcontent__title')
+                          .text($(event.target).val())
+                      }
+                    })
+                    .find('.ggj-dweditor__prop')
+                    .append(tpl.editor[type]);
+                  
+                  listItem
+                    .find('.ggj-drawing__content')
+                    .hide();
+
+                  var properties = ['name','fillColor', 'fillOpacity', 'strokeColor', 'strokeOpacity', 'strokeWeight'];
+
+                  for(index in properties)
+                  {
+                    var property = feature.getProperty(properties[index]) || styles[properties[index]];
+
+                    if(property)
+                    {
+                      listItem
+                        .find('input[name="' + properties[index] + '"]')
+                        .val(property);
+                    }
+                  }
                   break;
-                case 'drawing-edit':
-                  var name = prompt('Write new name', feature.getProperty('name'));
-                  feature.setProperty('name', name);
-                  listItem.find('.ggj-dwcontent__title').text(name);
-                  break;
+                case 'drawing-hide-properties':
+                  listItem
+                    .removeClass('ggj-drawings__item_editor-active')
+                    .find('.ggj-drawing__content')
+                    .show();
               }
             }
           });
@@ -118,7 +179,12 @@
               .mouseover(function()
               {
                 map.data.revertStyle();
-                map.data.overrideStyle($(this).data('feature'), {strokeWeight: 8, animation: google.maps.Animation.BOUNCE});
+                var hilight = {
+                  strokeWeight: 8,
+                  animation: google.maps.Animation.BOUNCE
+                }
+                if($(this).hasClass('ggj-drawings__item_editor-active')) delete hilight.strokeWeight; 
+                map.data.overrideStyle($(this).data('feature'), hilight);
               })
               .mouseout(function()
               {
@@ -204,19 +270,29 @@
         function setDataLayerStyle(editable) 
         {
           map.data.setStyle(function(feature)
-          {
-            var prop = 
+          { 
+            var prop = {};
+            
+            for(name in styles)
             {
-              fillColor: 'blue',
-              strokeColor: 'blue'
-            };
+              var style = feature.getProperty(name);
 
+              if(style)
+              {
+                prop[name] = style; 
+              }
+              else
+              {
+                prop[name] = styles[name];
+              }
+            }
+            
             if(editable)
             {
               prop.editable = true;
               prop.draggable = true;
             }
-            
+
             return prop;
           });
         };
@@ -289,10 +365,19 @@
     }
   };
 
+  //
+  // Functions
+  //
+
   function getRandomInt()
   {
     var min = 0;
     var max = 99999999;
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
+
+  function getFeatureStyle(map, feature)
+  {
+
+  }
 })(jQuery);
