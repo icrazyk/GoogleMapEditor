@@ -38,7 +38,8 @@
       {
         var self = this,
             $this = $(this),
-            data = $this.data('ggj');
+            data = $this.data('ggj'),
+            drawings = $this.find('.ggj-drawings');
         
         if(!data)
         {
@@ -94,7 +95,6 @@
 
           // drawings
 
-          var drawings = $this.find('.ggj-drawings');
 
           $(drawings).on('click.ggj', function(e)
           {
@@ -259,11 +259,13 @@
           
           // set jQuery object data
 
-          $(this).data('ggj', {
+          $(this).data(
+            'ggj', 
+            {
               target : $this,
               map : map, // google map object
               ggj : $ggj // ggj jQuery object
-          });
+            });
         }
 
         //
